@@ -1,6 +1,7 @@
 import { mongoose } from 'mongoose';
 import { makeExecutableSchema } from 'graphql-tools';
 import { ApolloServer } from 'apollo-server';
+import { userTypeDefs, userResolvers } from './common/users/user.schema';
 
 mongoose.connect('mongodb://localhost/graphql-demo', {
   useNewUrlParser: true
@@ -16,7 +17,8 @@ const rootTypeDefs = `
 `;
 
 const schema = makeExecutableSchema({
-  typeDefs: [rootTypeDefs]
+  typeDefs: [rootTypeDefs, userTypeDefs],
+  resolvers: userResolvers
 });
 
 const server = new ApolloServer({
